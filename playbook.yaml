@@ -1,0 +1,106 @@
+---
+- name: Provision image
+  hosts: default
+  become: true
+
+  tasks:
+    - name: Add HashiCorp GPG Key
+      ansible.builtin.apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        state: present
+
+    - name: Add HashiCorp repo
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64] https://apt.releases.hashicorp.com focal main"
+        state: present
+
+    - name: Install HashiCorp software
+      ansible.builtin.apt:
+        pkg:
+        - packer
+        - terraform
+        - vault-enterprise
+        - consul-enterprise
+        - nomad-enterprise
+        - boundary-enterprise
+        update_cache: yes
+
+    - name: Install docker prerequisites
+      ansible.builtin.apt:
+        pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+    
+    - name: Add Docker GPG key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repo
+      ansible.builtin.apt_repository:
+        repo: "deb https://download.docker.com/linux/ubuntu jammy stable"
+        state: present
+  
+    - name: Install Docker
+      ansible.builtin.apt:
+        pkg:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
+        update_cache: yes
+
+    - name: Add Helm GPG Key
+      ansible.builtin.apt_key:
+        url: https://baltocdn.com/helm/signing.asc
+        state: present
+    
+    - name: Add Helm repo
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64] https://baltocdn.com/helm/stable/debian/ all main"
+  
+    - name: Install Helm
+      ansible.builtin.apt:
+        pkg:
+        - helm
+
+    - name: Install misc
+      ansible.builtin.apt:
+        pkg:
+        - net-tools
+        - jq
+        - make
+        - mysql-client
+        - ldap-utils
+        - awscli
+        update_cache: yes
+
+    - name: Clean up apt cache
+      ansible.builtin.apt:
+        clean: yes
+
+    - name: Update all packages to their latest version
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
+    - name: Add MongoDB GPG key
+      ansible.builtin.apt_key:
+        url: https://www.mongodb.org/static/pgp/server-8.0.asc
+        state: present
+
+    - name: Add MongoDB repo
+      ansible.builtin.apt_repository:
+        repo: "deb https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse"
+        state: present
+
+    - name: Install MongoDB client
+      ansible.builtin.apt:
+        pkg:
+          - mongodb-atlas
+          - mongodb-org-shell
+          - mongodb-org-tools
