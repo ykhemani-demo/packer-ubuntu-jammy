@@ -69,6 +69,7 @@ build {
       "sudo tar -C /data/src -xzf /data/src/coredns.tar.gz",
       "sudo mv /data/src/coredns /usr/bin/coredns",
       "sudo docker pull hashicorp/vault-enterprise:1.16.10-ent",
+      "sudo docker pull hashicorp/consul-enterirse:1.18.4-ent",
       "sudo docker pull mysql:5.7",
       "sudo docker pull mongo:7.0.5",
       "sudo docker pull bitnami/openldap:2.6.6"
