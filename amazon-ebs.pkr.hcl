@@ -62,7 +62,7 @@ source "amazon-ebs" "ubuntu-us-east-1" {
   encrypt_boot  = var.encrypt_boot
   kms_key_id    = var.encrypt_boot ? var.aws_kms_key_id : ""
 
-  source_ami = data.amazon-ami.ubuntu-us-east-1
+  source_ami = data.amazon-ami.ubuntu-us-east-1.id
   communicator = var.amazon_communicator
   ssh_username = var.amazon_ssh_username
 
@@ -86,7 +86,7 @@ source "amazon-ebs" "ubuntu-us-east-2" {
   encrypt_boot  = var.encrypt_boot
   kms_key_id    = var.encrypt_boot ? var.aws_kms_key_id : ""
 
-  source_ami = data.amazon-ami.ubuntu-us-east-2
+  source_ami = data.amazon-ami.ubuntu-us-east-2.id
   communicator = var.amazon_communicator
   ssh_username = var.amazon_ssh_username
 
@@ -110,7 +110,7 @@ source "amazon-ebs" "ubuntu-us-west-1" {
   encrypt_boot  = var.encrypt_boot
   kms_key_id    = var.encrypt_boot ? var.aws_kms_key_id : ""
 
-  source_ami = data.amazon-ami.ubuntu-us-east-2
+  source_ami = data.amazon-ami.ubuntu-us-west-1.id
   communicator = var.amazon_communicator
   ssh_username = var.amazon_ssh_username
 
@@ -134,7 +134,7 @@ source "amazon-ebs" "ubuntu-us-west-2" {
   encrypt_boot  = var.encrypt_boot
   kms_key_id    = var.encrypt_boot ? var.aws_kms_key_id : ""
 
-  source_ami = data.amazon-ami.ubuntu-us-east-2
+  source_ami = data.amazon-ami.ubuntu-us-west-2.id
   communicator = var.amazon_communicator
   ssh_username = var.amazon_ssh_username
 
